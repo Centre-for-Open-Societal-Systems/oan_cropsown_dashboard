@@ -1,0 +1,26 @@
+# Dev cluster (namespace crop), applied by the Jenkinsfile on develop after
+# values.yaml. crop's hosts are private (*.crop.openg2p.test on the
+# namespace's "internal" gateway, behind the dev box's nginx allowlist); see
+# docs/deployment.md before the first deploy.
+publicUrl: https://cropsown-registry-dashboard.crop.openg2p.test
+
+ingress:
+  private:
+    enabled: true
+    host: cropsown-registry-dashboard.crop.openg2p.test
+    gateway: internal
+
+iam:
+  # Must equal the IAM's AUTH_COOKIE_DOMAIN, and publicUrl must sit under it.
+  cookieDomain: .crop.openg2p.test
+
+oidc:
+  logoutUrl: https://keycloak.crop.openg2p.test/realms/staff/protocol/openid-connect/logout
+  clientId: cropsown-registry-staff-portal
+
+keycloakSetup:
+  realm: staff
+  grantUsers: [admin, nina.patel]
+
+links:
+  registryPortalUrl: https://cropsown-registry.crop.openg2p.test
